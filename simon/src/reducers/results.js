@@ -9,12 +9,12 @@ const initialState = {};
 export const results = (state = initialState, action = {}) => {
   switch (action.type) {
     case WRITE_TO_RESULTS: {
-      const stepProperty = action.payload.stepsizeProperty;
+      const stepsizeProperty = action.payload.stepsizeProperty;
       return {
         ...state,
         [action.payload.round]: {
           results: action.payload.results,
-          speed: stepProperty
+          speed: stepsizeProperty
         }
       };
     }

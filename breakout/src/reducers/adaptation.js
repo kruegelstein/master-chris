@@ -1,12 +1,12 @@
 import {
   SET_NEW_SPEED,
-  SET_DIMENSION,
+  SET_STEP_SIZE,
   GO_TO_USER_ID_INPUT,
   SAVE_ROUND
 } from "../constants/ActionTypes.js";
 
 const initialState = {
-  dimension: "",
+  stepsize: "",
   round: 1,
   speed: null
 };
@@ -14,12 +14,6 @@ const initialState = {
 export const adaptation = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_NEW_SPEED:
-      if (action.payload.rollback) {
-        return {
-          ...state,
-          speed: state.speed - 0.5
-        };
-      }
       return {
         ...state,
         speed: state.speed + 1
@@ -29,12 +23,11 @@ export const adaptation = (state = initialState, action = {}) => {
         ...state,
         round: state.round + 1
       };
-    case SET_DIMENSION:
-      const speed = action.payload.dimension === "Speed" ? 3 : 6;
+    case SET_STEP_SIZE:
       return {
         ...state,
-        dimension: action.payload.dimension,
-        speed
+        stepsize: action.payload.stepsize,
+        speed: 3
       };
     case GO_TO_USER_ID_INPUT:
       return initialState;

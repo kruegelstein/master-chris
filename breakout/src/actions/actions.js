@@ -1,7 +1,7 @@
 import {
   SET_USER_ID,
   SET_NEW_SPEED,
-  SET_DIMENSION,
+  SET_STEP_SIZE,
   SAVE_ROUND,
   GO_TO_RESULTS,
   STORE_IN_DB,
@@ -28,9 +28,9 @@ export const resetClicks = () => ({
   payload: {}
 });
 
-export const selectDimension = dimension => ({
-  type: SET_DIMENSION,
-  payload: { dimension }
+export const selectStepsize = stepsize => ({
+  type: SET_STEP_SIZE,
+  payload: { stepsize }
 });
 
 export const saveRound = (
@@ -38,10 +38,10 @@ export const saveRound = (
   destroyedBricks,
   losses,
   clicks,
-  dimensionProperty
+  stepsizeProperty
 ) => ({
   type: SAVE_ROUND,
-  payload: { round, destroyedBricks, losses, clicks, dimensionProperty }
+  payload: { round, destroyedBricks, losses, clicks, stepsizeProperty }
 });
 
 export const goToResults = () => ({ type: GO_TO_RESULTS, payload: {} });

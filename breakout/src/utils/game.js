@@ -31,19 +31,6 @@ export const createBricks = () => {
   return bricks;
 };
 
-export const ballColors = [
-  "rgb(0, 94, 255)",
-  "rgb(26, 110, 255)",
-  "rgb(51, 126, 255)",
-  "rgb(77, 142, 255)",
-  "rgb(102, 158, 255)",
-  "rgb(128, 174, 255)",
-  "rgb(153, 190, 255)",
-  "rgb(179, 207, 255)",
-  "rgb(204, 223, 255)",
-  "rgb(230, 239, 255)"
-];
-
 export const getTime = (start, end) => {
   return (end - start) / 1000;
 };

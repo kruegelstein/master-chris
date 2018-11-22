@@ -14,7 +14,6 @@ import {
 
 const mapStateToProps = state => ({
   userId: state.user.id,
-  adaptationDimension: state.adaptation.dimension,
   speed: state.adaptation.speed,
   round: state.adaptation.round,
   isResults: state.navigation.results,
@@ -22,12 +21,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSetNewSpeed: rollback => {
-    dispatch(setNewSpeed(rollback));
+  onSetNewSpeed: () => {
+    dispatch(setNewSpeed());
   },
-  onSaveRound: (round, destroyedBricks, losses, clicks, dimensionProperty) => {
+  onSaveRound: (round, destroyedBricks, losses, clicks, stepsizeProperty) => {
     dispatch(
-      saveRound(round, destroyedBricks, losses, clicks, dimensionProperty)
+      saveRound(round, destroyedBricks, losses, clicks, stepsizeProperty)
     );
   },
   goToResults: () => {

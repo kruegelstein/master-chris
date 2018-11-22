@@ -1,6 +1,6 @@
 export const SET_USER_ID: "SET_USER_ID" = "SET_USER_ID";
 export const SET_NEW_SPEED: "SET_NEW_SPEED" = "SET_NEW_SPEED";
-export const SET_DIMENSION: "SET_DIMENSION" = "SET_DIMENSION";
+export const SET_STEP_SIZE: "SET_STEP_SIZE" = "SET_STEP_SIZE";
 export const SAVE_ROUND: "SAVE_ROUND" = "SAVE_ROUND";
 export const GO_TO_RESULTS: "GO_TO_RESULTS" = "GO_TO_RESULTS";
 export const STORE_IN_DB: "STORE_IN_DB" = "STORE_IN_DB";

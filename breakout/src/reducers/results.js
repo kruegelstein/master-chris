@@ -1,23 +1,24 @@
 // Constants
 import {
   SAVE_ROUND,
-  SET_DIMENSION,
+  SET_STEP_SIZE,
   GO_TO_USER_ID_INPUT
 } from "../constants/ActionTypes.js";
 
 const initialState = {
-  dimension: ""
+  stepsize: ""
 };
 
 export const results = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_DIMENSION:
+    case SET_STEP_SIZE:
       return {
         ...state,
-        dimension: action.payload.dimension
+        stepsize: action.payload.stepsize
       };
     case SAVE_ROUND: {
-      const dimensionProperty = action.payload.dimensionProperty;
+      console.log("###", action.payload);
+      const stepsizeProperty = action.payload.stepsizeProperty;
       return {
         ...state,
         [action.payload.round]: {
@@ -26,7 +27,7 @@ export const results = (state = initialState, action = {}) => {
             losses: action.payload.losses,
             clicks: action.payload.clicks
           },
-          [state.dimension]: dimensionProperty
+          speed: stepsizeProperty
         }
       };
     }
