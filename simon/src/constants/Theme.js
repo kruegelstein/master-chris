@@ -1,4 +1,4 @@
-//  
+//
 
 export const theme = {
   baseColors: {
@@ -9,7 +9,7 @@ export const theme = {
     orange: "#FFA81C",
     pink: "#FF1CEC"
   },
-  highlightColor: "#1C37FF",
+  highlightColor: "#FF1C1C",
   sizes: {
     s: "2rem",
     m: "4rem",

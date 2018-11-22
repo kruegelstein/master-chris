@@ -7,7 +7,6 @@ class Square extends Component {
       <SquareComp
         active={this.props.active}
         size={this.props.size}
-        color={this.props.color}
         margin={this.props.margin}
       />
     );
