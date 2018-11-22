@@ -2,19 +2,19 @@
 import {
   WRITE_TO_RESULTS,
   GO_TO_USER_ID_INPUT,
-  SET_DIMENSION
+  SET_STEPSIZE
 } from "../constants/ActionTypes.js";
 
 const initialState = {
-  dimension: ""
+  stepsize: ""
 };
 
 export const results = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_DIMENSION:
+    case SET_STEPSIZE:
       return {
         ...state,
-        dimension: action.payload.dimension
+        stepsize: action.payload.stepsize
       };
     case WRITE_TO_RESULTS: {
       const dimensionProperty = action.payload.dimensionProperty;

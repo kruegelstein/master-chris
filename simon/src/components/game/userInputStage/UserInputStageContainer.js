@@ -11,11 +11,6 @@ import {
   nextRound,
   writeToResults,
   setNewSpeed,
-  setNewOpacity,
-  setRollback,
-  addPoints,
-  setNewPoints,
-  setNewPatternLength,
   saveClick
 } from "../../../actions/actions.js";
 
@@ -28,12 +23,7 @@ const mapStateToProps = state => ({
   showResults: state.navigation.results,
   results: state.results,
   speed: state.user.speed,
-  opacity: state.user.opacity,
-  dimension: state.user.dimension,
-  rollback: state.user.rollback,
   patternLength: state.user.patternLength,
-  points: state.user.points,
-  pointsValue: state.user.pointsValue,
   clicks: state.user.clicks
 });
 
@@ -49,21 +39,6 @@ const mapDispatchToProps = dispatch => ({
   },
   onSetNewSpeed: (currentSpeed, rollback) => {
     dispatch(setNewSpeed(currentSpeed, rollback));
-  },
-  onSetRollback: () => {
-    dispatch(setRollback());
-  },
-  onSetNewOpacity: (currentOpacity, rollback) => {
-    dispatch(setNewOpacity(currentOpacity, rollback));
-  },
-  onSetNewPoints: (currentPoints, rollback) => {
-    dispatch(setNewPoints(currentPoints, rollback));
-  },
-  onSetNewPatternLength: (currentPatternLength, rollback) => {
-    dispatch(setNewPatternLength(currentPatternLength, rollback));
-  },
-  addPoints: round => {
-    dispatch(addPoints(round));
   },
   saveClick: click => {
     dispatch(saveClick(click));

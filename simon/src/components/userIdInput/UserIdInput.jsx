@@ -7,19 +7,14 @@ import Title from "../general/Title.js";
 import Paragraph from "../general/Paragraph.js";
 import BlockContainer from "../general/BlockContainer.js";
 import Button from "../general/RoundButton.js";
-import Dimension from "./Dimension.js";
+import Stepsize from "./Stepsize.js";
 
-const ADAPTATION_DIMENSIONS = [
-  "Speed",
-  "Object clarity",
-  "Content",
-  "Incentives"
-];
+const STEP_SIZES = ["Linear", "Half", "Smart"];
 
 class UserIdInput extends Component {
   state = {
     inputValue: "",
-    selectedDimension: "Speed"
+    selectedStepsize: "Linaer"
   };
   onTextinputChange = (event: Event) => {
     const newInput = event.target.value;
@@ -29,11 +24,11 @@ class UserIdInput extends Component {
   };
 
   onSubmit() {
-    this.props.onStart(this.state.inputValue, this.state.selectedDimension);
+    this.props.onStart(this.state.inputValue, this.state.selectedStepsize);
   }
 
-  selectDimension(dimension) {
-    this.setState({ selectedDimension: dimension });
+  selectStepsize(stepsize) {
+    this.setState({ selectedStepsize: stepsize });
   }
 
   render() {
@@ -51,14 +46,14 @@ class UserIdInput extends Component {
             />
           </BlockContainer>
           <BlockContainer margin="4rem 0 0 0">
-            {ADAPTATION_DIMENSIONS.map((dimension, index) => (
-              <Dimension
+            {STEP_SIZES.map((stepsize, index) => (
+              <Stepsize
                 key={index}
-                selected={this.state.selectedDimension === dimension}
-                onClick={() => this.selectDimension(dimension)}
+                selected={this.state.selectedStepsize === stepsize}
+                onClick={() => this.selectStepsize(stepsize)}
               >
-                {dimension}
-              </Dimension>
+                {stepsize}
+              </Stepsize>
             ))}
           </BlockContainer>
           <BlockContainer margin="4rem 0 0 0">

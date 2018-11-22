@@ -7,7 +7,7 @@ import UserIdInput from "./UserIdInput.jsx";
 import {
   submitUserId,
   showPreTraining,
-  selectDimension
+  selectStepsize
 } from "../../actions/actions.js";
 
 const mapStateToProps = state => ({
@@ -15,9 +15,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onStart: (id, dimension) => {
+  onStart: (id, stepsize) => {
     dispatch(submitUserId(id));
-    dispatch(selectDimension(dimension));
+    dispatch(selectStepsize(stepsize));
     dispatch(showPreTraining());
   }
 });
