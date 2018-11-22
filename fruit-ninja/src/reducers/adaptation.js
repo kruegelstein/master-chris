@@ -1,52 +1,26 @@
 import {
-  SET_DIMENSION,
+  SET_STEP_SIZE,
   GO_TO_USER_ID_INPUT,
   NEXT_ROUND,
-  CHANGE_INCENTIVES,
-  HIT_ELEMENT,
-  TOGGLE_INCENTIVES
+  HIT_ELEMENT
 } from "../constants/ActionTypes.js";
 
 const initialState = {
-  dimension: "",
-  round: 1,
-  incentives: 10,
-  points: 0,
-  isIncentiveActive: false
+  stepsize: "",
+  round: 1
 };
 
 export const adaptation = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_DIMENSION:
+    case SET_STEP_SIZE:
       return {
         ...state,
-        dimension: action.payload.dimension
+        stepsize: action.payload.stepsize
       };
     case NEXT_ROUND:
       return {
         ...state,
         round: state.round + 1
-      };
-    case HIT_ELEMENT:
-      return {
-        ...state,
-        points: state.points + state.incentives
-      };
-    case TOGGLE_INCENTIVES:
-      return {
-        ...state,
-        isIncentiveActive: !action.payload.currentState
-      };
-    case CHANGE_INCENTIVES:
-      if (action.payload.rollback) {
-        return {
-          ...state,
-          incentives: state.incentives - 5
-        };
-      }
-      return {
-        ...state,
-        incentives: state.incentives + 10
       };
     case GO_TO_USER_ID_INPUT:
       return initialState;

@@ -2,14 +2,9 @@ import React, { Component } from "react";
 
 // Styled componets
 import Element from "../Element/ElementContainer.js";
-import DashBoard from "../../dashBoard/DashBoardContainer.js";
-
-// Sounds
-import beep from "../../../sounds/Beep.mov";
 
 // Helper
 import {
-  getOpacity,
   getAdaptationScore,
   getSpeed,
   getCoordinates
@@ -46,54 +41,37 @@ class Elements extends Component {
   }
 
   createElements = () => {
-    for (let i = 0; i < this.props.numberOfElementsToCreate; i++) {
-      const id = Math.floor(Math.random() * 10000000);
-      this.props.createElement(id);
-    }
+    const id = Math.floor(Math.random() * 10000000);
+    this.props.createElement(id);
   };
 
   triggerAdaptation = () => {
-    this.play();
     const score = getAdaptationScore(this.props.hits, this.props.misses);
     // Save results for the round
     this.saveResults();
     // Stop adapting after 10 rounds
-    if (this.props.round === 10 || this.props.rollback) {
-      clearInterval(this.elementInterval);
+    if (this.props.round === 10) {
       clearInterval(this.adaptationInterval);
       this.props.goToResults();
       return;
     }
     if (this.props.round < 3) {
       // first two rounds adapt for learning
-      this.next(false);
+      this.next();
       return;
     }
     if (score > 0) {
       // Positive score --> adapt
-      this.next(false);
+      this.next();
     } else {
       // Negative score --> Set rollback flag
-      this.next(true);
+      clearInterval(this.adaptationInterval);
+      this.props.goToResults();
+      return;
     }
   };
 
-  next(rollback) {
-    if (rollback) {
-      if (this.props.dimension === "Content") {
-        this.props.changeNumberOfElementsToCreate(rollback);
-      }
-      if (this.props.dimension === "Incentives") {
-        this.props.changeIncentives(rollback);
-      }
-      this.props.onSetRollback();
-    }
-    if (this.props.dimension === "Content") {
-      this.props.changeNumberOfElementsToCreate(false);
-    }
-    if (this.props.dimension === "Incentives") {
-      this.props.changeIncentives(false);
-    }
+  next() {
     this.props.onNextRound();
   }
 
@@ -104,39 +82,10 @@ class Elements extends Component {
   };
 
   saveRound = () => {
-    const {
-      hits,
-      misses,
-      clicks,
-      round,
-      rollback,
-      dimension,
-      incentives,
-      numberOfElementsToCreate
-    } = this.props;
-    let dimensionProperty;
-    switch (dimension) {
-      case "Speed":
-        dimensionProperty = getSpeed(round, rollback);
-        break;
-      case "Object clarity":
-        dimensionProperty = getOpacity(round, rollback);
-        break;
-      case "Incentives":
-        dimensionProperty = incentives;
-        break;
-      case "Content":
-        dimensionProperty = numberOfElementsToCreate;
-        break;
-      default:
-        null;
-    }
-    this.props.onSaveRound(round, hits, misses, clicks, dimensionProperty);
-  };
+    const { hits, misses, clicks, round, stepsize } = this.props;
+    const stepsizeProperty = getSpeed(round);
 
-  play = () => {
-    const video = document.getElementById("video");
-    video.play();
+    this.props.onSaveRound(round, hits, misses, clicks, stepsizeProperty);
   };
 
   render() {
@@ -154,8 +103,6 @@ class Elements extends Component {
               />
             );
           })}
-          <DashBoard />
-          <video id="video" src={beep} style={{ height: 0, width: 0 }} />
         </div>
       );
     }
