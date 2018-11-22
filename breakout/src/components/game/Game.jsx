@@ -3,19 +3,12 @@ import { withTheme } from "styled-components";
 import Hammer from "hammerjs";
 import Pressure from "pressure";
 
-import Incentive from "./Incentive.js";
-import DashBoard from "../dashBoard/DashBoard.jsx";
-
-// Sounds
-import beep from "../../sound/Beep.mp4";
-
 // Components
 import Canvas from "./Canvas.js";
 
 // Utils
 import {
   createBricks,
-  ballColors,
   getTime,
   getAdaptationScore,
   checkCollision
@@ -32,7 +25,7 @@ class Game extends Component {
     this.height = null;
     this.canvas = null;
     this.ctx = null;
-    this.balls = [];
+    this.ball = null;
     this.paddle = null;
     this.bricks = null;
     this.ballOn = null;
@@ -41,16 +34,12 @@ class Game extends Component {
     this.keys = null;
     this.pressedKeys = null;
     this.interval = null;
-    this.ballColor = ballColors[0];
-    this.incentives = 10;
+    this.ballColor = "rgb(0, 94, 255)";
     this.ballCount = 1;
-    this.rollback = false;
   }
   state = {
     brickCount: 0,
     losses: 0,
-    points: 0,
-    isIncentiveActive: false,
     click: {
       start: 0,
       end: 0,
@@ -113,10 +102,10 @@ class Game extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.speed !== this.props.speed) {
       // Consider the current direction of the ball when adapting the speed
-      if (this.balls[0].speedY > 0) {
-        this.balls[0].speedY = nextProps.speed;
+      if (this.ball.speedY > 0) {
+        this.ball.speedY = nextProps.speed;
       } else {
-        this.balls[0].speedY = -nextProps.speed;
+        this.ball.speedY = -nextProps.speed;
       }
     }
   }
@@ -162,7 +151,6 @@ class Game extends Component {
       this.ballOn = true;
       this.gameOver = 0;
       this.interval = setInterval(this.triggerAdaptation, ADAPTION_INTERVAL);
-      this.play();
     });
 
     mc.on("panleft", event => {
@@ -191,54 +179,11 @@ class Game extends Component {
     });
   };
 
-  checkResults = (state, round) => {
-    // stop adapting after 10 rounds
-    if (round === 10) {
-      this.props.goToResults();
-      return;
-    }
-  };
-
-  adapt = rollback => {
-    switch (this.props.adaptationDimension) {
-      case "Speed":
-        if (rollback) {
-          // Go back half a speed step
-          this.props.onSetNewSpeed(rollback);
-          return;
-        }
-        this.props.onSetNewSpeed();
-        break;
-      case "Object clarity":
-        if (rollback) {
-          // Go back to the previous color
-          this.ballColor = ballColors[this.props.round - 3];
-          return;
-        }
-        this.ballColor = ballColors[this.props.round - 1];
-        break;
-      case "Incentives":
-        if (rollback) {
-          this.incentives = this.incentives - 5;
-          return;
-        }
-        this.incentives = this.incentives + 10;
-        break;
-      case "Content":
-        if (rollback) {
-          this.ballCount = this.ballCount - 1;
-          return;
-        }
-        this.ballCount = this.ballCount + 1;
-        this.createNewBall();
-        break;
-      default:
-        null;
-    }
+  adapt = () => {
+    this.props.onSetNewSpeed();
   };
 
   triggerAdaptation = () => {
-    this.play();
     // Only adapt if the game is active
     if (this.gameOver === 0) {
       // Calculate score
@@ -249,9 +194,9 @@ class Game extends Component {
       // Save results for the round
       this.saveResults();
       // Stop adapting after 10 rounds
-      if (this.props.round === 10 || this.rollback) {
-        this.props.goToResults();
+      if (this.props.round === 10) {
         clearInterval(this.interval);
+        this.props.goToResults();
         return;
       }
       if (this.props.round < 3) {
@@ -263,21 +208,12 @@ class Game extends Component {
         // Positive score --> adapt
         this.adapt();
       } else {
-        // Negative score --> Set rollback flag
-        this.rollback = true;
-        this.adapt(true);
+        // Negative score --> Set rollback --> Finish
+        clearInterval(this.interval);
+        this.props.goToResults();
+        return;
       }
     }
-  };
-
-  createNewBall = () => {
-    this.balls[this.ballCount - 1] = {
-      x: this.width / 2 - 1, // -1 => move the ball slightly to give him a starting direction
-      y: this.height / 2,
-      radius: 8,
-      speedX: 0,
-      speedY: this.props.speed
-    };
   };
 
   saveRound = state => {
@@ -285,42 +221,25 @@ class Game extends Component {
     const losses = state.losses;
     const clicks = this.props.clicks;
     const round = this.props.round;
-    let dimensionProperty;
-    switch (this.props.adaptationDimension) {
-      case "Speed":
-        dimensionProperty = this.props.speed;
-        break;
-      case "Object clarity":
-        dimensionProperty = this.ballColor;
-        break;
-      case "Incentives":
-        dimensionProperty = this.incentives;
-        break;
-      case "Content":
-        dimensionProperty = this.ballCount;
-        break;
-      default:
-        null;
-    }
+    const stepsizeProperty = this.props.speed;
+
     this.props.onSaveRound(
       round,
       destroyedBricks,
       losses,
       clicks,
-      dimensionProperty
+      stepsizeProperty
     );
   };
 
   setupGameElements = () => {
-    for (let i = 0; i < this.ballCount; i++) {
-      this.balls[i] = {
-        x: this.width / 2 - 1, // -1 => move the ball slightly to give him a starting direction
-        y: this.height / 2,
-        radius: 8,
-        speedX: 0,
-        speedY: this.props.speed
-      };
-    }
+    this.ball = {
+      x: this.width / 2 - 1, // -1 => move the ball slightly to give him a starting direction
+      y: this.height / 2,
+      radius: 8,
+      speedX: 0,
+      speedY: this.props.speed
+    };
     this.paddle = {
       w: 160,
       h: 5,
@@ -333,9 +252,9 @@ class Game extends Component {
     this.bricks = createBricks();
   };
 
-  continue = ballIndex => {
-    this.balls[ballIndex] = {
-      x: this.width / 2 - 1 + 5 * ballIndex, // -1 => move the ball slightly to give him a starting direction
+  continue = () => {
+    this.ball = {
+      x: this.width / 2 - 1 + 5, // -1 => move the ball slightly to give him a starting direction
       y: this.height / 2,
       radius: 8,
       speedX: 0,
@@ -388,23 +307,21 @@ class Game extends Component {
   };
 
   moveBall = () => {
-    for (let i = 0; i < this.ballCount; i++) {
-      if (this.ballOn === true) {
-        this.balls[i].x += this.balls[i].speedX;
-        this.balls[i].y += this.balls[i].speedY;
-        // Check if ball hit the ceiling
-        this.checkCeilingHit(this.balls[i]);
-        // Check if ball hit the paddle and consider angle
-        this.checkPaddleHit(this.balls[i]);
-        // Check if ball hit the wall - left and right
-        this.checkWallHit(this.balls[i]);
-        // Check for lost
-        this.checkLost(this.balls[i], this.height);
-        // Destroy brick
-        this.destroyBrick(this.balls[i]);
-        // Check for win
-        this.checkWin(this.bricks);
-      }
+    if (this.ballOn === true) {
+      this.ball.x += this.ball.speedX;
+      this.ball.y += this.ball.speedY;
+      // Check if ball hit the ceiling
+      this.checkCeilingHit(this.ball);
+      // Check if ball hit the paddle and consider angle
+      this.checkPaddleHit(this.ball);
+      // Check if ball hit the wall - left and right
+      this.checkWallHit(this.ball);
+      // Check for lost
+      this.checkLost(this.ball, this.height);
+      // Destroy brick
+      this.destroyBrick(this.ball);
+      // Check for win
+      this.checkWin(this.bricks);
     }
   };
 
@@ -435,8 +352,7 @@ class Game extends Component {
   checkLost = (ball, height) => {
     if (ball.y > height) {
       this.setState({ losses: this.state.losses + 1 });
-      const ballIndex = this.balls.indexOf(ball);
-      this.continue(ballIndex);
+      this.continue();
     }
   };
 
@@ -497,19 +413,11 @@ class Game extends Component {
 
   drawBall = ballColor => {
     // Draw balls according to ballCount
-    for (let i = 0; i < this.ballCount; i++) {
-      this.ctx.beginPath();
-      this.ctx.arc(
-        this.balls[i].x,
-        this.balls[i].y,
-        this.balls[i].radius,
-        0,
-        Math.PI * 2
-      );
-      this.ctx.fillStyle = ballColor;
+    this.ctx.beginPath();
+    this.ctx.arc(this.ball.x, this.ball.y, this.ball.radius, 0, Math.PI * 2);
+    this.ctx.fillStyle = ballColor;
 
-      this.ctx.fill();
-    }
+    this.ctx.fill();
   };
 
   drawBricks = () => {
@@ -526,35 +434,12 @@ class Game extends Component {
 
   destroyBrick = () => {
     for (var i = 0; i < this.bricks.length; i++) {
-      for (let j = 0; j < this.ballCount; j++) {
-        if (checkCollision(this.balls[j], this.bricks[i])) {
-          this.balls[j].speedY = -this.balls[j].speedY;
-          this.bricks.splice(i, 1);
-          this.setState({ brickCount: this.state.brickCount + 1 });
-          if (this.props.adaptationDimension === "Incentives") {
-            // Add points and trigger incentive
-            this.setState(
-              {
-                points: this.state.points + this.incentives,
-                isIncentiveActive: true
-              },
-              () => {
-                setTimeout(() => {
-                  this.setState({ isIncentiveActive: false });
-                }, 1000);
-              }
-            );
-          }
-        }
+      if (checkCollision(this.ball, this.bricks[i])) {
+        this.ball.speedY = -this.ball.speedY;
+        this.bricks.splice(i, 1);
+        this.setState({ brickCount: this.state.brickCount + 1 });
       }
     }
-  };
-
-  play = () => {
-    const video = document.getElementById("video");
-    setTimeout(() => {
-      video.play();
-    }, 15);
   };
 
   render() {
@@ -566,14 +451,6 @@ class Game extends Component {
           id="gameCanvas"
           userId={this.props.userId}
         />
-        <DashBoard
-          dimension={this.props.adaptationDimension}
-          points={this.state.points}
-        />
-        <Incentive active={this.state.isIncentiveActive}>
-          + {this.incentives}
-        </Incentive>
-        <video id="video" src={beep} style={{ height: 0, width: 0 }} />
       </div>
     );
   }

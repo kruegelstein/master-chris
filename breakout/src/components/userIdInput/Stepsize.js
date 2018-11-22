@@ -1,8 +1,6 @@
-//  
-
 import styled from "styled-components";
 
-const dimension = styled.div`
+const stepsize = styled.div`
   display: inline-block;
   font-size: 24px;
   font-weight: ${props => (props.selected ? "bold" : "")};
@@ -11,4 +9,4 @@ const dimension = styled.div`
   cursor: pointer;
 `;
 
-export default dimension;
+export default stepsize;
