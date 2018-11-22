@@ -17,12 +17,12 @@ export const results = (state = initialState, action = {}) => {
         stepsize: action.payload.stepsize
       };
     case WRITE_TO_RESULTS: {
-      const dimensionProperty = action.payload.dimensionProperty;
+      const stepProperty = action.payload.stepsizeProperty;
       return {
         ...state,
         [action.payload.round]: {
           results: action.payload.results,
-          [state.dimension]: dimensionProperty
+          [state.stepsize]: stepProperty
         }
       };
     }

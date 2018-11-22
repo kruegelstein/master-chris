@@ -28,8 +28,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onWriteToResults: (results, round, dimensionProperty) => {
-    dispatch(writeToResults(results, round, dimensionProperty));
+  onWriteToResults: (results, round, stepsizeProperty) => {
+    dispatch(writeToResults(results, round, stepsizeProperty));
   },
   onNextRound: score => {
     dispatch(nextRound(score));
@@ -37,8 +37,8 @@ const mapDispatchToProps = dispatch => ({
   onShowResults: () => {
     dispatch(showResults());
   },
-  onSetNewSpeed: (currentSpeed, rollback) => {
-    dispatch(setNewSpeed(currentSpeed, rollback));
+  onSetNewSpeed: currentSpeed => {
+    dispatch(setNewSpeed(currentSpeed));
   },
   saveClick: click => {
     dispatch(saveClick(click));

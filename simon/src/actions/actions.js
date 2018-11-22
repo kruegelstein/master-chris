@@ -36,9 +36,9 @@ export const showPreTraining = () => ({
 
 export const saveClick = click => ({ type: SAVE_CLICK, payload: { click } });
 
-export const writeToResults = (results, round, dimensionProperty) => ({
+export const writeToResults = (results, round, stepsizeProperty) => ({
   type: WRITE_TO_RESULTS,
-  payload: { results, round, dimensionProperty }
+  payload: { results, round, stepsizeProperty }
 });
 
 export const nextRound = score => ({

@@ -148,12 +148,12 @@ class UserInputStage extends Component {
 
   processResults(results, clicks) {
     const enrichedResults = getEnrichedResults(results, clicks);
-    const dimensionProperty = this.props.speed;
+    const stepsizeProperty = this.props.speed;
 
     this.props.onWriteToResults(
       enrichedResults,
       this.props.round,
-      dimensionProperty
+      stepsizeProperty
     );
     this.adapt(enrichedResults);
   }
