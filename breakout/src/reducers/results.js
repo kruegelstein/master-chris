@@ -17,7 +17,6 @@ export const results = (state = initialState, action = {}) => {
         stepsize: action.payload.stepsize
       };
     case SAVE_ROUND: {
-      console.log("###", action.payload);
       const stepsizeProperty = action.payload.stepsizeProperty;
       return {
         ...state,

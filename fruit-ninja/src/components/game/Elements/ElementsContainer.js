@@ -8,25 +8,18 @@ import {
   saveRound,
   goToResults,
   nextRound,
-  setRollback,
-  changeIncentives,
   resetClicks,
   resetHitsAndMisses,
-  createElement,
-  changeNumberOfElementsToCreate
+  createElement
 } from "../../../actions/actions.js";
 
 const mapStateToProps = state => ({
   round: state.adaptation.round,
-  rollback: state.user.rollback,
-  dimension: state.adaptation.dimension,
   gameStarted: state.game.started,
   hits: state.game.hits,
   misses: state.game.misses,
   clicks: state.user.clicks,
-  elements: state.game.elements,
-  incentives: state.adaptation.incentives,
-  numberOfElementsToCreate: state.game.numberOfElementsToCreate
+  elements: state.game.elements
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -36,14 +29,8 @@ const mapDispatchToProps = dispatch => ({
   onNextRound: () => {
     dispatch(nextRound());
   },
-  onSetRollback: () => {
-    dispatch(setRollback());
-  },
   goToResults: () => {
     dispatch(goToResults());
-  },
-  changeIncentives: rollback => {
-    dispatch(changeIncentives(rollback));
   },
   resetClicks: () => {
     dispatch(resetClicks());
@@ -53,9 +40,6 @@ const mapDispatchToProps = dispatch => ({
   },
   createElement: id => {
     dispatch(createElement(id));
-  },
-  changeNumberOfElementsToCreate: rollback => {
-    dispatch(changeNumberOfElementsToCreate(rollback));
   }
 });
 

@@ -5,7 +5,6 @@ import {
   HIT_ELEMENT,
   MISS_ELEMENT,
   CREATE_ELEMENT,
-  CHANGE_NUMBER_OF_ELEMENTS_TO_CREATE,
   GO_TO_USER_ID_INPUT
 } from "../constants/ActionTypes.js";
 
@@ -13,8 +12,7 @@ const initialState = {
   started: false,
   hits: 0,
   misses: 0,
-  elements: [],
-  numberOfElementsToCreate: 1
+  elements: []
 };
 
 export const game = (state = initialState, action = {}) => {
@@ -49,17 +47,6 @@ export const game = (state = initialState, action = {}) => {
       return {
         ...state,
         elements: state.elements.concat([element])
-      };
-    case CHANGE_NUMBER_OF_ELEMENTS_TO_CREATE:
-      if (action.payload.rollback) {
-        return {
-          ...state,
-          numberOfElementsToCreate: state.numberOfElementsToCreate - 1
-        };
-      }
-      return {
-        ...state,
-        numberOfElementsToCreate: state.numberOfElementsToCreate + 1
       };
     case GO_TO_USER_ID_INPUT:
       return initialState;
