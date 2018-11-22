@@ -12,16 +12,11 @@ import {
   NEXT_ROUND,
   WRITE_TO_RESULTS,
   SET_NEW_SPEED,
-  SET_NEW_OPACITY,
-  SET_ROLLBACK,
   STORE_IN_DB,
   STORE_IN_DB_SUCCESS,
   STORE_IN_DB_ERROR,
   GO_TO_USER_ID_INPUT,
-  SET_DIMENSION,
-  ADD_POINTS,
-  SET_NEW_POINTS,
-  SET_NEW_PATTERNLENGTH,
+  SET_STEPSIZE,
   SAVE_CLICK
 } from "../constants/ActionTypes.js";
 
@@ -41,9 +36,9 @@ export const showPreTraining = () => ({
 
 export const saveClick = click => ({ type: SAVE_CLICK, payload: { click } });
 
-export const writeToResults = (results, round, dimensionProperty) => ({
+export const writeToResults = (results, round, stepsizeProperty) => ({
   type: WRITE_TO_RESULTS,
-  payload: { results, round, dimensionProperty }
+  payload: { results, round, stepsizeProperty }
 });
 
 export const nextRound = score => ({
@@ -51,34 +46,9 @@ export const nextRound = score => ({
   payload: { score }
 });
 
-export const setNewSpeed = (currentSpeed, rollback) => ({
+export const setNewSpeed = currentSpeed => ({
   type: SET_NEW_SPEED,
-  payload: { currentSpeed, rollback }
-});
-
-export const setNewPoints = (currentPoints, rollback) => ({
-  type: SET_NEW_POINTS,
-  payload: { currentPoints, rollback }
-});
-
-export const setNewPatternLength = (currentPatternLength, rollback) => ({
-  type: SET_NEW_PATTERNLENGTH,
-  payload: { currentPatternLength, rollback }
-});
-
-export const setNewOpacity = (currentOpacity, rollback) => ({
-  type: SET_NEW_OPACITY,
-  payload: { currentOpacity, rollback }
-});
-
-export const setRollback = () => ({
-  type: SET_ROLLBACK,
-  payload: {}
-});
-
-export const addPoints = pointsValue => ({
-  type: ADD_POINTS,
-  payload: { pointsValue }
+  payload: { currentSpeed }
 });
 
 export const submitUserId = id => ({ type: SET_USER_ID, payload: { id } });
@@ -105,9 +75,9 @@ export const showResults = () => ({
   payload: {}
 });
 
-export const selectDimension = dimension => ({
-  type: SET_DIMENSION,
-  payload: { dimension }
+export const selectStepsize = stepsize => ({
+  type: SET_STEPSIZE,
+  payload: { stepsize }
 });
 
 // Actions to backend (firebase)

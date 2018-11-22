@@ -51,16 +51,14 @@ class TrainingStage extends Component {
                     ...element,
                     props: {
                       ...element.props,
-                      active: true,
-                      opacity: this.props.opacity
+                      active: true
                     }
                   };
                 } else {
                   enhancedElement = {
                     ...element,
                     props: {
-                      ...element.props,
-                      opacity: this.props.opacity
+                      ...element.props
                     }
                   };
                 }
@@ -75,16 +73,14 @@ class TrainingStage extends Component {
                     ...element,
                     props: {
                       ...element.props,
-                      active: true,
-                      opacity: this.props.opacity
+                      active: true
                     }
                   };
                 } else {
                   enhancedElement = {
                     ...element,
                     props: {
-                      ...element.props,
-                      opacity: this.props.opacity
+                      ...element.props
                     }
                   };
                 }
@@ -99,16 +95,14 @@ class TrainingStage extends Component {
                     ...element,
                     props: {
                       ...element.props,
-                      active: true,
-                      opacity: this.props.opacity
+                      active: true
                     }
                   };
                 } else {
                   enhancedElement = {
                     ...element,
                     props: {
-                      ...element.props,
-                      opacity: this.props.opacity
+                      ...element.props
                     }
                   };
                 }

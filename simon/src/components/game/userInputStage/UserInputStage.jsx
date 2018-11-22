@@ -7,7 +7,6 @@ import TableComp from "../../table/Table.js";
 import TableBodyComp from "../../table/TableBody.js";
 import TrComp from "../../table/Tr.js";
 import TdComp from "../../table/Td.js";
-import DashBoard from "../dashBoard/DashBoardContainer.js";
 
 // Sounds
 import click from "../../../sound/click.mov";
@@ -142,52 +141,19 @@ class UserInputStage extends Component {
     this.setState({ startTime: Date.now() });
   }
 
-  nextRound(rollback) {
-    switch (this.props.dimension) {
-      case "Speed":
-        this.props.onSetNewSpeed(this.props.speed, rollback || false);
-        break;
-      case "Object clarity":
-        this.props.onSetNewOpacity(this.props.opacity, rollback || false);
-        break;
-      case "Incentives":
-        this.props.onSetNewPoints(this.props.pointsValue, rollback || false);
-        break;
-      case "Content":
-        this.props.onSetNewPatternLength(
-          this.props.patternLength,
-          rollback || false
-        );
-        break;
-      default:
-        null;
-    }
+  nextRound() {
+    this.props.onSetNewSpeed(this.props.speed);
     this.props.onNextRound();
   }
 
   processResults(results, clicks) {
     const enrichedResults = getEnrichedResults(results, clicks);
-    let dimensionProperty;
-    switch (this.props.dimension) {
-      case "Speed":
-        dimensionProperty = this.props.speed;
-        break;
-      case "Object clarity":
-        dimensionProperty = this.props.opacity;
-        break;
-      case "Content":
-        dimensionProperty = this.props.patternLength;
-        break;
-      case "Incentives":
-        dimensionProperty = this.props.pointsValue;
-        break;
-      default:
-        null;
-    }
+    const stepsizeProperty = this.props.speed;
+
     this.props.onWriteToResults(
       enrichedResults,
       this.props.round,
-      dimensionProperty
+      stepsizeProperty
     );
     this.adapt(enrichedResults);
   }
@@ -198,9 +164,8 @@ class UserInputStage extends Component {
       this.nextRound();
       return;
     }
-    // If the rollback is set the user got his second chance already and we show results results after the round
-    // Or if the user played 10 rounds already
-    if (this.props.rollback || this.props.round === 10) {
+    // If the user played 10 rounds --> finish
+    if (this.props.round === 10) {
       this.props.onShowResults();
       return;
     }
@@ -216,11 +181,6 @@ class UserInputStage extends Component {
     // Decide whether we go to the next round or show results based on score
     // Good answer performance from round 3 (this is more or less a test) and round 2 is the first reference
     if (this.props.round >= 3) {
-      // For Content dimension go to nextRound after round 3
-      if (this.props.round === 3 && this.props.dimension === "Content") {
-        this.nextRound();
-        return;
-      }
       // Good last results 4 or 5 correct answers and also 4 or 5 correct answers this round
       if (
         lastResults.correct >= 4 &&
@@ -241,8 +201,7 @@ class UserInputStage extends Component {
           this.nextRound();
           return;
         } else {
-          this.props.onSetRollback();
-          this.nextRound(true);
+          this.props.onShowResults();
           return;
         }
       }
@@ -252,8 +211,8 @@ class UserInputStage extends Component {
         this.nextRound();
         return;
       }
-      this.props.onSetRollback();
-      this.nextRound(true);
+      this.props.onShowResults();
+      return;
     }
   }
 
@@ -268,24 +227,9 @@ class UserInputStage extends Component {
     const oldElements = this.state.selectedElements;
     const newElement = [key];
     const selectedElements = oldElements.concat(newElement);
-    this.setState(
-      {
-        selectedElements
-      },
-      () => {
-        // In the incentives dimension we want to add points for correct answers
-        if (this.props.dimension === "Incentives") {
-          // Add points if the correct element was selected
-          if (
-            this.state.selectedElements[
-              this.state.selectedElements.length - 1
-            ] === this.state.pattern[this.state.selectedElements.length - 1]
-          ) {
-            this.props.addPoints(this.props.pointsValue);
-          }
-        }
-      }
-    );
+    this.setState({
+      selectedElements
+    });
     // At this point check if the round is over
     if (this.state.selectedElements.length === this.props.patternLength - 1) {
       this.setState({
@@ -301,7 +245,6 @@ class UserInputStage extends Component {
   render() {
     return (
       <TrainingStageComp id="element">
-        <DashBoard />
         <TableComp>
           <TableBodyComp>
             <TrComp>
@@ -317,26 +260,14 @@ class UserInputStage extends Component {
                     ...element,
                     props: {
                       ...element.props,
-                      active: true,
-                      opacity: this.props.opacity,
-                      correct:
-                        this.props.dimension === "Incentives"
-                          ? this.state.selectedElements[
-                              this.state.selectedElements.length - 1
-                            ] ===
-                            this.state.pattern[
-                              this.state.selectedElements.length - 1
-                            ]
-                          : false,
-                      pointsValue: this.props.pointsValue
+                      active: true
                     }
                   };
                 } else {
                   enhancedElement = {
                     ...element,
                     props: {
-                      ...element.props,
-                      opacity: this.props.opacity
+                      ...element.props
                     }
                   };
                 }
@@ -363,26 +294,14 @@ class UserInputStage extends Component {
                     ...element,
                     props: {
                       ...element.props,
-                      active: true,
-                      opacity: this.props.opacity,
-                      correct:
-                        this.props.dimension === "Incentives"
-                          ? this.state.selectedElements[
-                              this.state.selectedElements.length - 1
-                            ] ===
-                            this.state.pattern[
-                              this.state.selectedElements.length - 1
-                            ]
-                          : false,
-                      pointsValue: this.props.pointsValue
+                      active: true
                     }
                   };
                 } else {
                   enhancedElement = {
                     ...element,
                     props: {
-                      ...element.props,
-                      opacity: this.props.opacity
+                      ...element.props
                     }
                   };
                 }
@@ -409,26 +328,14 @@ class UserInputStage extends Component {
                     ...element,
                     props: {
                       ...element.props,
-                      active: true,
-                      opacity: this.props.opacity,
-                      correct:
-                        this.props.dimension === "Incentives"
-                          ? this.state.selectedElements[
-                              this.state.selectedElements.length - 1
-                            ] ===
-                            this.state.pattern[
-                              this.state.selectedElements.length - 1
-                            ]
-                          : false,
-                      pointsValue: this.props.pointsValue
+                      active: true
                     }
                   };
                 } else {
                   enhancedElement = {
                     ...element,
                     props: {
-                      ...element.props,
-                      opacity: this.props.opacity
+                      ...element.props
                     }
                   };
                 }

@@ -1,4 +1,4 @@
-//  
+//
 
 import { connect } from "react-redux";
 
@@ -13,8 +13,7 @@ const mapStateToProps = state => ({
   training: state.navigation.training,
   round: state.navigation.round,
   currentRound: state.currentRound,
-  speed: state.user.speed,
-  opacity: state.user.opacity
+  speed: state.user.speed
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -23,4 +22,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrainingStage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TrainingStage);

@@ -1,28 +1,20 @@
 // Constants
 import {
   WRITE_TO_RESULTS,
-  GO_TO_USER_ID_INPUT,
-  SET_DIMENSION
+  GO_TO_USER_ID_INPUT
 } from "../constants/ActionTypes.js";
 
-const initialState = {
-  dimension: ""
-};
+const initialState = {};
 
 export const results = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_DIMENSION:
-      return {
-        ...state,
-        dimension: action.payload.dimension
-      };
     case WRITE_TO_RESULTS: {
-      const dimensionProperty = action.payload.dimensionProperty;
+      const stepProperty = action.payload.stepsizeProperty;
       return {
         ...state,
         [action.payload.round]: {
           results: action.payload.results,
-          [state.dimension]: dimensionProperty
+          speed: stepProperty
         }
       };
     }
