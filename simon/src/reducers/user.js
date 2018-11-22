@@ -14,7 +14,7 @@ import { getNewSpeed } from "../utils/lightUp";
 const initialState = {
   id: null,
   stepsize: "",
-  speed: 3000,
+  speed: 2000,
   patternLength: 5,
   clicks: []
 };
