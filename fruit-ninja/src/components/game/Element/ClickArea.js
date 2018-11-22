@@ -14,7 +14,6 @@ const element = styled.div`
   position: absolute;
   animation: ${props => `${down} ${props.speed}s linear`};
   display: ${props => (props.clicked ? "none" : "block")};
-  opacity: ${props => props.opacity};
 `;
 
 export default element;

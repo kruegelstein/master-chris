@@ -1,4 +1,4 @@
-//  
+//
 
 import { connect } from "react-redux";
 
@@ -6,17 +6,20 @@ import { connect } from "react-redux";
 import UserIdInput from "./UserIdInput.jsx";
 
 // Actions
-import { submitUserId, selectDimension } from "../../actions/actions.js";
+import { submitUserId, selectStepsize } from "../../actions/actions.js";
 
 const mapStateToProps = state => ({
   userId: state.user.id
 });
 
 const mapDispatchToProps = dispatch => ({
-  onStart: (id, dimension) => {
+  onStart: (id, stepsize) => {
     dispatch(submitUserId(id));
-    dispatch(selectDimension(dimension));
+    dispatch(selectStepsize(stepsize));
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserIdInput);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserIdInput);
