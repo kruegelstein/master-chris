@@ -3,7 +3,7 @@ import {
   SET_USER_ID,
   SET_NEW_SPEED,
   GO_TO_USER_ID_INPUT,
-  SET_STEPSIZE,
+  SET_STEP_SIZE,
   NEXT_ROUND,
   SAVE_CLICK
 } from "../constants/ActionTypes.js";
@@ -37,7 +37,7 @@ export const user = (state = initialState, action = {}) => {
         points: 0,
         clicks: []
       };
-    case SET_STEPSIZE:
+    case SET_STEP_SIZE:
       return {
         ...state,
         stepsize: action.payload.stepsize

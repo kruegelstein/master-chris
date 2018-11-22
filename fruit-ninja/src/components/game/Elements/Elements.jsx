@@ -82,7 +82,7 @@ class Elements extends Component {
   };
 
   saveRound = () => {
-    const { hits, misses, clicks, round, stepsize } = this.props;
+    const { hits, misses, clicks, round } = this.props;
     const stepsizeProperty = getSpeed(round);
 
     this.props.onSaveRound(round, hits, misses, clicks, stepsizeProperty);

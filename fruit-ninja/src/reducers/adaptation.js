@@ -1,8 +1,7 @@
 import {
   SET_STEP_SIZE,
   GO_TO_USER_ID_INPUT,
-  NEXT_ROUND,
-  HIT_ELEMENT
+  NEXT_ROUND
 } from "../constants/ActionTypes.js";
 
 const initialState = {

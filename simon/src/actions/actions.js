@@ -16,7 +16,7 @@ import {
   STORE_IN_DB_SUCCESS,
   STORE_IN_DB_ERROR,
   GO_TO_USER_ID_INPUT,
-  SET_STEPSIZE,
+  SET_STEP_SIZE,
   SAVE_CLICK
 } from "../constants/ActionTypes.js";
 
@@ -76,7 +76,7 @@ export const showResults = () => ({
 });
 
 export const selectStepsize = stepsize => ({
-  type: SET_STEPSIZE,
+  type: SET_STEP_SIZE,
   payload: { stepsize }
 });
 
