@@ -14,7 +14,7 @@ const STEP_SIZES = ["Linear", "Half", "Smart"];
 class UserIdInput extends Component {
   state = {
     inputValue: "",
-    selectedStepsize: "Linaer"
+    selectedStepsize: "Linear"
   };
   onTextinputChange = (event: Event) => {
     const newInput = event.target.value;
