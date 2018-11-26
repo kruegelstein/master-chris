@@ -7,7 +7,8 @@ import Element from "./Element.jsx";
 import { hitElement, missElement } from "../../../actions/actions.js";
 
 const mapStateToProps = state => ({
-  round: state.adaptation.round
+  round: state.adaptation.round,
+  stepsize: state.adaptation.stepsize
 });
 
 const mapDispatchToProps = dispatch => ({
