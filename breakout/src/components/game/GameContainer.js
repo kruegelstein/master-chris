@@ -17,12 +17,13 @@ const mapStateToProps = state => ({
   speed: state.adaptation.speed,
   round: state.adaptation.round,
   isResults: state.navigation.results,
-  clicks: state.user.clicks
+  clicks: state.user.clicks,
+  stepsize: state.adaptation.stepsize
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSetNewSpeed: () => {
-    dispatch(setNewSpeed());
+  onSetNewSpeed: stepsize => {
+    dispatch(setNewSpeed(stepsize));
   },
   onSaveRound: (round, destroyedBricks, losses, clicks, stepsizeProperty) => {
     dispatch(

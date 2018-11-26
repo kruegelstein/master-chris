@@ -16,9 +16,9 @@ import { firebaseApp } from "../firebase.js";
 
 export const submitUserId = id => ({ type: SET_USER_ID, payload: { id } });
 
-export const setNewSpeed = rollback => ({
+export const setNewSpeed = stepsize => ({
   type: SET_NEW_SPEED,
-  payload: { rollback }
+  payload: { stepsize }
 });
 
 export const saveClick = click => ({ type: SAVE_CLICK, payload: { click } });

@@ -50,3 +50,24 @@ export const checkCollision = (obj1, obj2) => {
     return true;
   }
 };
+
+export const getNewSpeed = (currentSpeed, stepsize) => {
+  switch (stepsize) {
+    case "Linear":
+      return getLinearSpeed(currentSpeed);
+      break;
+    case "Half":
+      return getHalfSpeed(currentSpeed);
+      break;
+    default:
+      null;
+  }
+};
+
+const getLinearSpeed = currentSpeed => {
+  return currentSpeed + 1;
+};
+
+const getHalfSpeed = currentSpeed => {
+  return currentSpeed * 2;
+};
