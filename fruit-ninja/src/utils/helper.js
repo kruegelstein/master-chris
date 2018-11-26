@@ -10,10 +10,8 @@ export const getSpeed = (round, stepsize) => {
   switch (stepsize) {
     case "Linear":
       return getLinearSpeed(round);
-      break;
     case "Half":
       return getHalfSpeed(round);
-      break;
     default:
       null;
   }

@@ -27,7 +27,6 @@ export const getNewSpeed = (currentSpeed, stepsize) => {
       return getLinearSpeed(currentSpeed);
     case "Half":
       return getHalfSpeed(currentSpeed);
-      break;
     default:
       null;
   }
