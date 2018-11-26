@@ -46,7 +46,8 @@ export const user = (state = initialState, action = {}) => {
       return initialState;
     case SET_NEW_SPEED:
       const currentSpeed = action.payload.currentSpeed;
-      const newSpeed = getNewSpeed(currentSpeed);
+      const stepsize = action.payload.stepsize;
+      const newSpeed = getNewSpeed(currentSpeed, stepsize);
       return {
         ...state,
         speed: newSpeed

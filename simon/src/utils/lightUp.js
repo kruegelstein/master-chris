@@ -1,5 +1,3 @@
-//
-
 export const createPattern = (patternSize, elements) => {
   let availiableElements = elements;
   let pattern = [];
@@ -23,14 +21,32 @@ export const createPattern = (patternSize, elements) => {
   return pattern;
 };
 
-export const getNewSpeed = currentSpeed => {
-  const linearStepSize = 300;
+export const getNewSpeed = (currentSpeed, stepsize) => {
+  switch (stepsize) {
+    case "Linear":
+      return getLinearSpeed(currentSpeed);
+    case "Half":
+      return getHalfSpeed(currentSpeed);
+      break;
+    default:
+      null;
+  }
+};
+
+const getHalfSpeed = currentSpeed => {
+  // Prevent too low speed
+  if (currentSpeed === 125) return currentSpeed;
+  return currentSpeed / 2;
+};
+
+const getLinearSpeed = currentSpeed => {
+  const linearStepSize = 200;
   // Preventing nevative speed
   if (currentSpeed - linearStepSize > 0) {
     return currentSpeed - linearStepSize;
   } else {
-    // Do not reduce speed if speed is 150ms
-    if (currentSpeed === 150) return currentSpeed;
+    // Do not reduce speed if speed is 100ms
+    if (currentSpeed === 100) return currentSpeed;
     currentSpeed / 2;
   }
 };

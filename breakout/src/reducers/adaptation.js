@@ -5,6 +5,8 @@ import {
   SAVE_ROUND
 } from "../constants/ActionTypes.js";
 
+import { getNewSpeed } from "../utils/game.js";
+
 const initialState = {
   stepsize: "",
   round: 1,
@@ -14,9 +16,10 @@ const initialState = {
 export const adaptation = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_NEW_SPEED:
+      const newSpeed = getNewSpeed(state.speed, action.payload.stepsize);
       return {
         ...state,
-        speed: state.speed + 1
+        speed: newSpeed
       };
     case SAVE_ROUND:
       return {

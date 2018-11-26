@@ -42,7 +42,7 @@ class Element extends Component {
     const icon = array[Math.floor(Math.random() * 4)];
     const iconValue = icons[icon];
     const yCoordinate = Math.floor(Math.random() * 400);
-    const speed = getSpeed(this.props.round);
+    const speed = getSpeed(this.props.round, this.props.stepsize);
 
     return (
       <ClickArea

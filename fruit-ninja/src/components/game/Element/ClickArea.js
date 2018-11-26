@@ -12,7 +12,7 @@ const element = styled.div`
   top: ${props => `${props.yCoordinate}px`}
   right: ${props => `${props.xCoordinate}px`};
   position: absolute;
-  animation: ${props => `${down} ${props.speed}s linear`};
+  animation: ${props => `${down} ${props.speed}ms linear`};
   display: ${props => (props.clicked ? "none" : "block")};
 `;
 

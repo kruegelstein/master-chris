@@ -180,7 +180,7 @@ class Game extends Component {
   };
 
   adapt = () => {
-    this.props.onSetNewSpeed();
+    this.props.onSetNewSpeed(this.props.stepsize);
   };
 
   triggerAdaptation = () => {

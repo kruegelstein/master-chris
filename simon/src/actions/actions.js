@@ -1,5 +1,3 @@
-//
-
 import {
   SET_USER_ID,
   PRE_TRAINING,
@@ -46,9 +44,9 @@ export const nextRound = score => ({
   payload: { score }
 });
 
-export const setNewSpeed = currentSpeed => ({
+export const setNewSpeed = (currentSpeed, stepsize) => ({
   type: SET_NEW_SPEED,
-  payload: { currentSpeed }
+  payload: { currentSpeed, stepsize }
 });
 
 export const submitUserId = id => ({ type: SET_USER_ID, payload: { id } });
