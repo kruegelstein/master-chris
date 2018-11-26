@@ -142,7 +142,7 @@ class UserInputStage extends Component {
   }
 
   nextRound() {
-    this.props.onSetNewSpeed(this.props.speed);
+    this.props.onSetNewSpeed(this.props.speed, this.props.stepsize);
     this.props.onNextRound();
   }
 

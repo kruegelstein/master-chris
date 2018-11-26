@@ -1,5 +1,3 @@
-//
-
 import { connect } from "react-redux";
 
 // Wrapped component
@@ -24,7 +22,8 @@ const mapStateToProps = state => ({
   results: state.results,
   speed: state.user.speed,
   patternLength: state.user.patternLength,
-  clicks: state.user.clicks
+  clicks: state.user.clicks,
+  stepsize: state.user.stepsize
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -37,8 +36,8 @@ const mapDispatchToProps = dispatch => ({
   onShowResults: () => {
     dispatch(showResults());
   },
-  onSetNewSpeed: currentSpeed => {
-    dispatch(setNewSpeed(currentSpeed));
+  onSetNewSpeed: (currentSpeed, stepsize) => {
+    dispatch(setNewSpeed(currentSpeed, stepsize));
   },
   saveClick: click => {
     dispatch(saveClick(click));
