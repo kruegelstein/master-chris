@@ -1,6 +1,5 @@
 import React from "react";
 
-// import Circle from "../components/circle/Circle.jsx";
 import Square from "../components/square/Square.jsx";
 
 // Constants
