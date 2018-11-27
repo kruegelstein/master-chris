@@ -12,8 +12,37 @@ export const getSpeed = (round, stepsize) => {
       return getLinearSpeed(round);
     case "Half":
       return getHalfSpeed(round);
+    case "Smart":
+      return getSmartSpeed(round);
     default:
       null;
+  }
+};
+
+const getSmartSpeed = round => {
+  switch (round) {
+    case 1:
+      return 2000;
+    case 2:
+      return 1600;
+    case 3:
+      return 1280;
+    case 4:
+      return 1024;
+    case 5:
+      return 819;
+    case 6:
+      return 655;
+    case 7:
+      return 524;
+    case 8:
+      return 419;
+    case 9:
+      return 335;
+    case 10:
+      return 268;
+    default:
+      return null;
   }
 };
 
