@@ -42,7 +42,7 @@ const getSmartSpeed = currentSpeed => {
 const getHalfSpeed = currentSpeed => {
   // Prevent too low speed
   if (currentSpeed === 125) return currentSpeed;
-  return currentSpeed / 2;
+  return currentSpeed * 0.5;
 };
 
 const getLinearSpeed = currentSpeed => {
