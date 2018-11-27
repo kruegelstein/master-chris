@@ -55,10 +55,10 @@ export const getNewSpeed = (currentSpeed, stepsize) => {
   switch (stepsize) {
     case "Linear":
       return getLinearSpeed(currentSpeed);
-      break;
     case "Half":
       return getHalfSpeed(currentSpeed);
-      break;
+    case "Smart":
+      return getSmartSpeed(currentSpeed);
     default:
       null;
   }
@@ -70,4 +70,8 @@ const getLinearSpeed = currentSpeed => {
 
 const getHalfSpeed = currentSpeed => {
   return currentSpeed * 2;
+};
+
+const getSmartSpeed = currentSpeed => {
+  return currentSpeed * 1.8;
 };
