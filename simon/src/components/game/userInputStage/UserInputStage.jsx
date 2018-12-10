@@ -14,8 +14,6 @@ import click from "../../../sound/click.mov";
 // Helper
 import {
   getEnrichedResults,
-  getAnswerScore,
-  getTimeScore,
   getTime
 } from "../../../utils/results.js";
 
@@ -159,61 +157,15 @@ class UserInputStage extends Component {
   }
 
   adapt(enrichedResults) {
-    // Always move on to round two
-    if (this.props.round < 3) {
-      this.nextRound();
-      return;
-    }
-    // If the user played 10 rounds --> finish
-    if (this.props.round === 10) {
+    if (
+      this.props.round === 9 ||
+      this.props.speed === 125
+    ) {
       this.props.onShowResults();
       return;
     }
-    const lastResults = this.props.results[this.props.round - 1].results;
-    const answerScore = getAnswerScore(
-      lastResults.correct,
-      enrichedResults.correct
-    );
-    const timeScore = getTimeScore(
-      lastResults.timeTakenInSec,
-      enrichedResults.timeTakenInSec
-    );
-    // Decide whether we go to the next round or show results based on score
-    // Good answer performance from round 3 (this is more or less a test) and round 2 is the first reference
-    if (this.props.round >= 3) {
-      // Good last results 4 or 5 correct answers and also 4 or 5 correct answers this round
-      if (
-        lastResults.correct >= 4 &&
-        (answerScore === 0 || answerScore === -1)
-      ) {
-        // Good results
-        this.nextRound();
-        return;
-      }
-      if (lastResults.correct >= 4 && answerScore > 0) {
-        // Bad results
-        // Check the time when the user got 3 correct answers
-        if (
-          (enrichedResults.correct === 3 && timeScore > 1.5) ||
-          enrichedResults.correct === 4
-        ) {
-          // Just ok since the time of input improved significant
-          this.nextRound();
-          return;
-        } else {
-          this.props.onShowResults();
-          return;
-        }
-      }
-      // This case is just triggered if round two was bad
-      if (lastResults.correct < 4 && enrichedResults.correct >= 4) {
-        // Round two was bad but now the user got it
-        this.nextRound();
-        return;
-      }
-      this.props.onShowResults();
-      return;
-    }
+    this.nextRound();
+    return
   }
 
   giveFeedback() {

@@ -47,12 +47,5 @@ const getHalfSpeed = currentSpeed => {
 
 const getLinearSpeed = currentSpeed => {
   const linearStepSize = 200;
-  // Preventing nevative speed
-  if (currentSpeed - linearStepSize > 0) {
-    return currentSpeed - linearStepSize;
-  } else {
-    // Do not reduce speed if speed is 100ms
-    if (currentSpeed === 100) return currentSpeed;
-    currentSpeed / 2;
-  }
+  return currentSpeed - linearStepSize;
 };
