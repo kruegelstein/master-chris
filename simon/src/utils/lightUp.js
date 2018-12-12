@@ -28,21 +28,19 @@ export const getNewSpeed = (currentSpeed, stepsize, round) => {
     case "Half":
       return getHalfSpeed(currentSpeed);
     case "Smart":
-      return getSmartSpeed(currentSpeed, round);
+      return getSmartSpeed(round);
     default:
       null;
   }
 };
 
-const getSmartSpeed = (currentSpeed, round) => {
+const getSmartSpeed = (round) => {
   let newSpeed
   if(round === 1) {
     newSpeed = 1000
   } else {
     newSpeed = 1000 + -364.0956907 * Math.log(round)
   }
-  console.log('ROUND', round)
-  console.log('NEW_SPEED', newSpeed)
   return newSpeed;
 };
 

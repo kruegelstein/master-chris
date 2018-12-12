@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   stepsize: "",
-  round: 1
+  round: 0
 };
 
 export const adaptation = (state = initialState, action = {}) => {

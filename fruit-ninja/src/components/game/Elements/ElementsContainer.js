@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   hits: state.game.hits,
   misses: state.game.misses,
   clicks: state.user.clicks,
-  elements: state.game.elements
+  elements: state.game.elements,
+  stepsize: state.adaptation.stepsize
 });
 
 const mapDispatchToProps = dispatch => ({

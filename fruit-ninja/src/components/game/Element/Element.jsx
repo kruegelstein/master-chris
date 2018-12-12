@@ -41,7 +41,7 @@ class Element extends Component {
     const array = Object.keys(icons);
     const icon = array[Math.floor(Math.random() * 4)];
     const iconValue = icons[icon];
-    const yCoordinate = Math.floor(Math.random() * 400);
+    const yCoordinate = Math.floor(Math.random() * 200);
     const speed = getSpeed(this.props.round, this.props.stepsize);
 
     return (

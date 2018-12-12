@@ -5,7 +5,6 @@ import Element from "../Element/ElementContainer.js";
 
 // Helper
 import {
-  getAdaptationScore,
   getSpeed,
   getCoordinates
 } from "../../../utils/helper.js";
@@ -46,29 +45,16 @@ class Elements extends Component {
   };
 
   triggerAdaptation = () => {
-    const score = getAdaptationScore(this.props.hits, this.props.misses);
     // Save results for the round
     this.saveResults();
     // Stop adapting after 10 rounds
-    if (this.props.round === 10) {
+    if (this.props.round === 9 || getSpeed(this.props.round, this.props.stepsize) === 200) {
       clearInterval(this.adaptationInterval);
       this.props.goToResults();
       return;
     }
-    if (this.props.round < 3) {
-      // first two rounds adapt for learning
-      this.next();
-      return;
-    }
-    if (score > 0) {
-      // Positive score --> adapt
-      this.next();
-    } else {
-      // Negative score --> Set rollback flag
-      clearInterval(this.adaptationInterval);
-      this.props.goToResults();
-      return;
-    }
+    this.next();
+    return
   };
 
   next() {
@@ -82,8 +68,8 @@ class Elements extends Component {
   };
 
   saveRound = () => {
-    const { hits, misses, clicks, round } = this.props;
-    const stepsizeProperty = getSpeed(round);
+    const { hits, misses, clicks, round, stepsize } = this.props;
+    const stepsizeProperty = getSpeed(round, stepsize);
 
     this.props.onSaveRound(round, hits, misses, clicks, stepsizeProperty);
   };
