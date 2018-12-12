@@ -51,27 +51,52 @@ export const checkCollision = (obj1, obj2) => {
   }
 };
 
-export const getNewSpeed = (currentSpeed, stepsize) => {
+export const getNewSpeed = (currentSpeed, stepsize, round) => {
   switch (stepsize) {
     case "Linear":
       return getLinearSpeed(currentSpeed);
     case "Half":
       return getHalfSpeed(currentSpeed);
     case "Smart":
-      return getSmartSpeed(currentSpeed);
+      return getSmartSpeed(currentSpeed, round);
     default:
       null;
   }
 };
 
 const getLinearSpeed = currentSpeed => {
-  return currentSpeed + 1;
+  return currentSpeed + 2.5;
 };
 
 const getHalfSpeed = currentSpeed => {
   return currentSpeed * 2;
 };
 
-const getSmartSpeed = currentSpeed => {
-  return currentSpeed * 1.8;
+const getSmartSpeed = (currentSpeed, round) => {
+  let factor = 0;
+  switch (round) {
+    case 1:
+      factor = 2
+      break;
+    case 2:
+      factor = 1.5
+      break;
+    case 3:
+      factor = 1.4
+      break;
+    case 4:
+      factor = 1.3
+      break;
+    case 5:
+      factor = 1.2
+      break;
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+      factor = 1.1
+    default: null
+
+  }
+  return currentSpeed * factor;
 };

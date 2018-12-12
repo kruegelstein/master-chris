@@ -10,7 +10,6 @@ import Canvas from "./Canvas.js";
 import {
   createBricks,
   getTime,
-  getAdaptationScore,
   checkCollision
 } from "../../utils/game.js";
 
@@ -186,33 +185,16 @@ class Game extends Component {
   triggerAdaptation = () => {
     // Only adapt if the game is active
     if (this.gameOver === 0) {
-      // Calculate score
-      const score = getAdaptationScore(
-        this.state.brickCount,
-        this.state.losses
-      );
       // Save results for the round
       this.saveResults();
       // Stop adapting after 10 rounds
-      if (this.props.round === 10) {
+      if (this.props.round === 10 || this.props.speed === 24) {
         clearInterval(this.interval);
         this.props.goToResults();
         return;
       }
-      if (this.props.round < 3) {
-        // first two rounds adapt for learning
-        this.adapt();
-        return;
-      }
-      if (score > 0) {
-        // Positive score --> adapt
-        this.adapt();
-      } else {
-        // Negative score --> Set rollback --> Finish
-        clearInterval(this.interval);
-        this.props.goToResults();
-        return;
-      }
+      this.adapt()
+      return
     }
   };
 
