@@ -27,11 +27,27 @@ export const adaptation = (state = initialState, action = {}) => {
         round: state.round + 1
       };
     case SET_STEP_SIZE:
-      return {
-        ...state,
-        stepsize: action.payload.stepsize,
-        speed: 3
-      };
+      if(action.payload.stepsize === 'Linear') {
+        return {
+          ...state,
+          stepsize: action.payload.stepsize,
+          speed: 1.8
+        };
+      }
+      if(action.payload.stepsize === 'Half') {
+        return {
+          ...state,
+          stepsize: action.payload.stepsize,
+          speed: 2.25
+        };
+      }
+      if(action.payload.stepsize === 'Smart') {
+        return {
+          ...state,
+          stepsize: action.payload.stepsize,
+          speed: 1.8
+        };
+      }
     case GO_TO_USER_ID_INPUT:
       return initialState;
     default:

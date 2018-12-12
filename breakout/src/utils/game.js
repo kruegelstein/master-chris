@@ -65,7 +65,7 @@ export const getNewSpeed = (currentSpeed, stepsize, round) => {
 };
 
 const getLinearSpeed = currentSpeed => {
-  return currentSpeed + 2.5;
+  return currentSpeed + 1.8;
 };
 
 const getHalfSpeed = currentSpeed => {
@@ -73,30 +73,11 @@ const getHalfSpeed = currentSpeed => {
 };
 
 const getSmartSpeed = (currentSpeed, round) => {
-  let factor = 0;
-  switch (round) {
-    case 1:
-      factor = 2
-      break;
-    case 2:
-      factor = 1.5
-      break;
-    case 3:
-      factor = 1.4
-      break;
-    case 4:
-      factor = 1.3
-      break;
-    case 5:
-      factor = 1.2
-      break;
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-      factor = 1.1
-    default: null
-
+  let newSpeed
+  if(round === 1) {
+    newSpeed = 3.6
+  } else {
+    newSpeed = 3.6 + 6.553722432 * Math.log(round)
   }
-  return currentSpeed * factor;
+  return newSpeed;
 };
