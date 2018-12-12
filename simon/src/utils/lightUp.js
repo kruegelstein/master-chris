@@ -21,22 +21,29 @@ export const createPattern = (patternSize, elements) => {
   return pattern;
 };
 
-export const getNewSpeed = (currentSpeed, stepsize) => {
+export const getNewSpeed = (currentSpeed, stepsize, round) => {
   switch (stepsize) {
     case "Linear":
       return getLinearSpeed(currentSpeed);
     case "Half":
       return getHalfSpeed(currentSpeed);
     case "Smart":
-      return getSmartSpeed(currentSpeed);
+      return getSmartSpeed(currentSpeed, round);
     default:
       null;
   }
 };
 
-const getSmartSpeed = currentSpeed => {
-  if (currentSpeed < 138) return currentSpeed;
-  return currentSpeed * 0.8;
+const getSmartSpeed = (currentSpeed, round) => {
+  let newSpeed
+  if(round === 1) {
+    newSpeed = 1000
+  } else {
+    newSpeed = 1000 + -364.0956907 * Math.log(round)
+  }
+  console.log('ROUND', round)
+  console.log('NEW_SPEED', newSpeed)
+  return newSpeed;
 };
 
 const getHalfSpeed = currentSpeed => {
