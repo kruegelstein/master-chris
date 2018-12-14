@@ -16,7 +16,8 @@ const initialState = {
   stepsize: "",
   speed: 2000,
   patternLength: 5,
-  clicks: []
+  clicks: [],
+  round: 0
 };
 
 export const user = (state = initialState, action = {}) => {
@@ -35,7 +36,8 @@ export const user = (state = initialState, action = {}) => {
       return {
         ...state,
         points: 0,
-        clicks: []
+        clicks: [],
+        round: state.round + 1,
       };
     case SET_STEP_SIZE:
       return {
@@ -47,7 +49,7 @@ export const user = (state = initialState, action = {}) => {
     case SET_NEW_SPEED:
       const currentSpeed = action.payload.currentSpeed;
       const stepsize = action.payload.stepsize;
-      const newSpeed = getNewSpeed(currentSpeed, stepsize);
+      const newSpeed = getNewSpeed(currentSpeed, stepsize, state.round);
       return {
         ...state,
         speed: newSpeed

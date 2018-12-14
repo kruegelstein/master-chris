@@ -34,7 +34,7 @@ class UserIdInput extends Component {
   render() {
     if (!this.props.userId) {
       return (
-        <UserIdInputComp>
+        <UserIdInputComp id="setup">
           <Title>Fruit Ninja</Title>
           <BlockContainer>
             <Paragraph>Please enter a user id:</Paragraph>

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Game from "./Game.jsx";
 
 // Actions
-import { startGame, saveClick } from "../../actions/actions.js";
+import { startGame } from "../../actions/actions.js";
 
 const mapStateToProps = state => ({
   userId: state.user.id,
@@ -17,9 +17,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   startGame: () => {
     dispatch(startGame());
-  },
-  saveClick: click => {
-    dispatch(saveClick(click));
   }
 });
 

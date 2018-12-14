@@ -8,8 +8,7 @@ import {
   showResults,
   nextRound,
   writeToResults,
-  setNewSpeed,
-  saveClick
+  setNewSpeed
 } from "../../../actions/actions.js";
 
 const mapStateToProps = state => ({
@@ -38,9 +37,6 @@ const mapDispatchToProps = dispatch => ({
   },
   onSetNewSpeed: (currentSpeed, stepsize) => {
     dispatch(setNewSpeed(currentSpeed, stepsize));
-  },
-  saveClick: click => {
-    dispatch(saveClick(click));
   }
 });
 
