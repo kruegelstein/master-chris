@@ -12,7 +12,7 @@ import { getSpeed } from "../../../utils/helper.js";
 class Element extends Component {
   constructor(props) {
     super(props);
-    this.update = true;
+    this.update = false;
   }
   shouldComponentUpdate() {
     return this.update;
@@ -41,7 +41,7 @@ class Element extends Component {
     const array = Object.keys(icons);
     const icon = array[Math.floor(Math.random() * 4)];
     const iconValue = icons[icon];
-    const yCoordinate = Math.floor(Math.random() * 200);
+    const yCoordinate = Math.floor(Math.random() * 50);
     const speed = getSpeed(this.props.round, this.props.stepsize);
 
     return (
@@ -53,7 +53,7 @@ class Element extends Component {
         clicked={this.state.clicked}
         id={`animation-${this.props.elementId}`}
       >
-        <ElementComp src={iconValue} />
+        <ElementComp src={iconValue} id='img'/>
       </ClickArea>
     );
   }

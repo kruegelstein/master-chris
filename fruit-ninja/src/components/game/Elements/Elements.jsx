@@ -48,7 +48,7 @@ class Elements extends Component {
     // Save results for the round
     this.saveResults();
     // Stop adapting after 10 rounds
-    if (this.props.round === 9 || getSpeed(this.props.round, this.props.stepsize) === 200) {
+    if (this.props.round === 9 || getSpeed(this.props.round, this.props.stepsize) === 625) {
       clearInterval(this.adaptationInterval);
       this.props.goToResults();
       return;
@@ -78,11 +78,12 @@ class Elements extends Component {
     const coordinates = getCoordinates(this.props.elements);
     if (this.props.gameStarted) {
       return (
-        <div>
+        <div id='elementsContainer'>
           {this.props.elements.map((element, index) => {
             const xCoordinate = coordinates[index];
             return (
               <Element
+                id='element'
                 key={element}
                 elementId={element}
                 xCoordinate={xCoordinate}

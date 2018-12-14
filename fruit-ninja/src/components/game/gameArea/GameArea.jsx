@@ -9,7 +9,7 @@ class GameArea extends Component {
   render() {
     if (this.props.userId) {
       return (
-        <GameAreaComp>
+        <GameAreaComp id="gameComp">
           <Game />
         </GameAreaComp>
       );

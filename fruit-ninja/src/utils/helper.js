@@ -22,11 +22,11 @@ export const getSpeed = (round, stepsize) => {
 const getSmartSpeed = round => {
   let newSpeed
   if(round === 0) {
-    newSpeed = 2000
+    newSpeed = 5000
   } else if(round === 1) {
-    newSpeed = 1000
+    newSpeed = 2500
   } else {
-    newSpeed = 1000 -347.4355855 * Math.log(round)
+    newSpeed = 2500 -868.5889638 * Math.log(round)
   }
   return newSpeed;
 };
@@ -34,15 +34,13 @@ const getSmartSpeed = round => {
 const getHalfSpeed = round => {
   switch (round) {
     case 0:
-      return 3200;
+      return 5000;
     case 1:
-      return 1600;
+      return 2500;
     case 2:
-      return 800;
+      return 1250;
     case 3:
-      return 400;
-    case 4:
-      return 200;
+      return 625;
     default:
       return null;
   }
@@ -51,25 +49,25 @@ const getHalfSpeed = round => {
 const getLinearSpeed = round => {
   switch (round) {
     case 0:
-      return 2000;
+      return 5000;
     case 1:
-      return 1800;
+      return 4500;
     case 2:
-      return 1600;
+      return 4000;
     case 3:
-      return 1400;
+      return 3500;
     case 4:
-      return 1200;
+      return 3000;
     case 5:
-      return 1000;
+      return 2500;
     case 6:
-      return 800;
+      return 2000;
     case 7:
-      return 600;
+      return 1500;
     case 8:
-      return 400;
+      return 1000;
     case 9:
-      return 200;
+      return 500;
     default:
       return null;
   }
