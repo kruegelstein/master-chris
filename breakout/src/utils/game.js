@@ -6,7 +6,7 @@ const BALL_OFFSET = 8;
 export const createBricks = () => {
   const bricks = [];
   let brickX = 2;
-  let brickY = 10;
+  let brickY = 2;
   let j = 0;
   let i = 0;
   for (i; i < theme.game.bricks.numberOfBricks; i++) {
