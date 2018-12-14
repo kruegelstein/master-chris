@@ -32,6 +32,7 @@ class Element extends Component {
     });
   };
   clickElement() {
+    console.log('#####')
     this.setState({ clicked: true });
     this.props.hitElement(this.props.elementId);
   }
@@ -46,7 +47,9 @@ class Element extends Component {
 
     return (
       <ClickArea
-        onClick={event => this.clickElement()}
+        // Use onClick for Desktop
+        // onClick={event => this.clickElement()}
+        onTouchStart={event => this.clickElement()}
         speed={speed}
         yCoordinate={yCoordinate}
         xCoordinate={this.props.xCoordinate}
