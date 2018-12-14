@@ -1,7 +1,7 @@
 // Constants
 import { theme } from "../constants/Theme.js";
 
-const BALL_OFFSET = 8;
+const BALL_OFFSET = 12;
 
 export const createBricks = () => {
   const bricks = [];
@@ -23,8 +23,8 @@ export const createBricks = () => {
     bricks.push(brick);
     brickX += theme.game.bricks.brickWidth + 2;
     if (brickX + theme.game.bricks.brickWidth + 2 > theme.game.width) {
-      brickY += 12;
-      brickX = 2;
+      brickY += 18;
+      brickX = 1.5;
       j++;
     }
   }
